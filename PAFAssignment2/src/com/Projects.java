@@ -46,7 +46,7 @@ public String readItems()
 	 // iterate through the rows in the result set
 	 while (rs.next())
 	 {
-		 String Project_Id = Integer.toString(rs.getInt("Project_Id"));
+		 
 		 String randomProj_ID = rs.getString("randomProj_ID");
 		 String Project_Title = rs.getString("Project_Title");
 		 String Project_ShortDes = rs.getString("Project_ShortDes");
@@ -64,9 +64,9 @@ public String readItems()
 		 
 		// buttons
 		 output += "<td><input name='btnUpdate' type='button' value='Update' "
-		 + "class='btnUpdate btn btn-secondary' data-itemid='" + Project_Id + "'></td>"
+		 + "class='btnUpdate btn btn-secondary' data-randomProj_ID='" + randomProj_ID + "'></td>"
 		 + "<td><input name='btnRemove' type='button' value='Remove' "
-		 + "class='btnRemove btn btn-danger' data-itemid='" + Project_Id + "'></td></tr>";
+		 + "class='btnRemove btn btn-danger' data-randomProj_ID='" + randomProj_ID + "'></td></tr>";
 		  }
 		  con.close();
 		  // Complete the html table
@@ -169,8 +169,8 @@ public String updateProjects(String randomProj_ID,String Project_Title,String Pr
 		 return output;
 	}
 
-		public String deleteItem(String randomProj_ID)
-		{
+public String deleteItem(String randomProj_ID)
+{
 			String output = "";
 			
 		 try
@@ -189,7 +189,7 @@ public String updateProjects(String randomProj_ID,String Project_Title,String Pr
 		 PreparedStatement preparedStmt = con.prepareStatement(query);
 		 
 		 // binding values
-		 preparedStmt.setInt(1, Integer.parseInt(randomProj_ID));
+		 preparedStmt.setString(1, randomProj_ID);
 		 
 		 // execute the statement
 		 preparedStmt.execute();

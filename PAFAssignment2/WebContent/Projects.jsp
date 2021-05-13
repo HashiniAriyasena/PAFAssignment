@@ -6,6 +6,8 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<script src="Components/jquery-3.2.1.min.js"></script>
+<script src="Components/main.js"></script>
 </head>
 <body>
 
@@ -13,27 +15,34 @@
 	<h1>Items Management V10.1</h1>
 	
 	<form id="formItem" name="formItem">
- 		Item code:
- 		<input id="itemCode" name="itemCode" type="text"
+	   Random Project ID:
+ 		<input id="randomProj_ID" name="randomProj_ID" type="text"
+ 			class="form-control form-control-sm"><br>
+	
+ 		Project Title:
+ 		<input id="Project_Title" name="Project_Title" type="text"
  			class="form-control form-control-sm">
  			
- 		<br> Item name:
- 		<input id="itemName" name="itemName" type="text"
+ 		<br> Short Description:
+ 		<input id="Project_ShortDes" name="Project_ShortDes" type="text"
 			 class="form-control form-control-sm">
 			 
- 		<br> Item price:
- 		<input id="itemPrice" name="itemPrice" type="text"
+ 		<br> Long Description:
+ 		<input id="Project_LongDes" name="Project_LongDes" type="text"
  			class="form-control form-control-sm">
  			
- 		<br> Item description:
- 		<input id="itemDesc" name="itemDesc" type="text"
+ 		<br> Source Link:
+ 		<input id="Project_Srclink" name="Project_Srclink" type="text"
+ 			class="form-control form-control-sm">
+ 			
+ 		<br> Video Link:
+ 		<input id="Project_Videolink" name="Project_Videolink" type="text"
  			class="form-control form-control-sm">
  			
 		<br>
  		<input id="btnSave" name="btnSave" type="button" value="Save"
  				class="btn btn-primary">
- 		<input type="hidden" id="hidItemIDSave"
- 				name="hidItemIDSave" value="">
+ 		
 </form>
 
 <div id="alertSuccess" class="alert alert-success"></div>
