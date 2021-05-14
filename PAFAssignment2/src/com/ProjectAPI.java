@@ -50,8 +50,6 @@ public class ProjectAPI extends HttpServlet {
 				response.getWriter().write(output);
 			
 	}
-	
-
 
 	/**
 	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)

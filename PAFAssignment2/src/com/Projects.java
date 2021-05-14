@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Random;
 
 public class Projects {
 	
@@ -79,6 +80,24 @@ public String readItems()
 	}
 		 return output;
 	}
+
+//method to generate random project ID:
+public static String generateProjectId() {
+	
+    String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    StringBuilder salt = new StringBuilder();
+    Random rnd = new Random();
+    
+    while (salt.length() < 6) { // length of the random string.
+        int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+        salt.append(SALTCHARS.charAt(index));
+    }
+    
+    String saltStr = salt.toString();
+    
+    return  "PROJ-" + saltStr;
+
+}
 
 public String insertItem(String randomProj_ID, String Project_Title, String Project_ShortDes, String Project_LongDes, String Project_Srclink, String Project_Videolink)
 		{
