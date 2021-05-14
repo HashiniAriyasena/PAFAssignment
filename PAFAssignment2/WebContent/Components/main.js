@@ -72,7 +72,7 @@ function onItemSaveComplete(response, status)
 }
 $(document).on("click", ".btnUpdate", function(event)
 {
- $("#hidItemIDSave").val($(this).data("Project_Id"));	
+ $("#hidItemIDSave").val($(this).data("projectid"));	
  $("#randomProj_ID").val($(this).closest("tr").find('td:eq(0)').text());
  $("#Project_Title").val($(this).closest("tr").find('td:eq(1)').text());
  $("#Project_ShortDes").val($(this).closest("tr").find('td:eq(2)').text());
@@ -81,13 +81,13 @@ $(document).on("click", ".btnUpdate", function(event)
  $("#Project_Videolink").val($(this).closest("tr").find('td:eq(5)').text());
 });
 
-$(document).on("click", ".btnRemove", function(event)
+$(document).on("click", "#test", function(event)
 {
  		$.ajax(
  		{
  			url : "ProjectAPI",
  			type : "DELETE",
- 			data : "Project_Id=" + $(this).data("Project_Id"),
+ 			data : "Projectid=" + $(this).data("projectid"),
  			dataType : "text",
  			complete : function(response, status)
  			{

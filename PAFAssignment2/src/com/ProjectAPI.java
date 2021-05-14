@@ -81,7 +81,7 @@ public class ProjectAPI extends HttpServlet {
 		
 		Map paras = getParasMap(request);
 		
-		String output = projects.deleteItem(paras.get("Project_Id").toString());
+		String output = projects.deleteItem(paras.get("Projectid").toString());
 		
 		response.getWriter().write(output); 
 		
