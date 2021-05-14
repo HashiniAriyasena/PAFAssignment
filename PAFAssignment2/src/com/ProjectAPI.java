@@ -17,14 +17,14 @@ import java.util.Scanner;
 public class ProjectAPI extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private Projects projects;
+	Projects projects = new Projects();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ProjectAPI() {
-       
-    	this.projects = new Projects();
+    	super();
+    	
     }
 
 	/**
@@ -51,6 +51,41 @@ public class ProjectAPI extends HttpServlet {
 			
 	}
 	
+
+
+	/**
+	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+
+		 Map paras = getParasMap(request);
+		 
+		 
+		 String output = projects.updateProjects(paras.get("hidItemIDSave").toString(),		 
+		 paras.get("randomProj_ID").toString(),
+		 paras.get("Project_Title").toString(),
+		 paras.get("Project_ShortDes").toString(),
+		 paras.get("Project_LongDes").toString(),
+		 paras.get("Project_Srclink").toString(),
+		 paras.get("Project_Videolink").toString());
+		 
+		 response.getWriter().write(output);
+		
+	}
+
+	/**
+	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
+	 */
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Map paras = getParasMap(request);
+		
+		String output = projects.deleteItem(paras.get("Project_Id").toString());
+		
+		response.getWriter().write(output); 
+		
+	}
 	private static Map getParasMap(HttpServletRequest request)
 	{
 		Map<String, String> map = new HashMap<String, String>();
@@ -71,40 +106,10 @@ public class ProjectAPI extends HttpServlet {
 			}
 			catch (Exception e)
 			{
+				
 			}
 			return map;
 	}
 
-
-	/**
-	 * @see HttpServlet#doPut(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-
-		 Map paras = getParasMap(request);
-		 
-		 String output = projects.updateProjects( 
-				 
-		 paras.get("randomProj_ID").toString(),
-		 paras.get("Project_Title").toString(),
-		 paras.get("Project_ShortDes").toString(),
-		 paras.get("Project_LongDes").toString(),
-		 paras.get("Project_Srclink").toString(),
-		 paras.get("Project_Videolink").toString());
-		 response.getWriter().write(output);
-		
-	}
-
-	/**
-	 * @see HttpServlet#doDelete(HttpServletRequest, HttpServletResponse)
-	 */
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Map paras = getParasMap(request);
-		String output = projects.deleteItem(paras.get("randomProj_ID").toString());
-		response.getWriter().write(output); 
-		
-	}
 
 }

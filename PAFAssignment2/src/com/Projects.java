@@ -46,7 +46,7 @@ public String readItems()
 	 // iterate through the rows in the result set
 	 while (rs.next())
 	 {
-		 
+		 String Project_Id = Integer.toString(rs.getInt("Project_Id"));
 		 String randomProj_ID = rs.getString("randomProj_ID");
 		 String Project_Title = rs.getString("Project_Title");
 		 String Project_ShortDes = rs.getString("Project_ShortDes");
@@ -55,7 +55,7 @@ public String readItems()
 		 String Project_Videolink = rs.getString("Project_Videolink");
 
 		// Add into the html table
-		 output += "<tr><td>" + randomProj_ID + "</td>";
+		 output  +="<tr><td>"+ randomProj_ID + "</td>";
 		 output += "<td>" + Project_Title + "</td>";
 		 output += "<td>" + Project_ShortDes + "</td>";
 		 output += "<td>" + Project_LongDes + "</td>";
@@ -64,13 +64,13 @@ public String readItems()
 		 
 		// buttons
 		 output += "<td><input name='btnUpdate' type='button' value='Update' "
-		 + "class='btnUpdate btn btn-secondary' data-randomProj_ID='" + randomProj_ID + "'></td>"
+		 + "class='btnUpdate btn btn-secondary' data-Project_Id='" + Project_Id + "'></td>"
 		 + "<td><input name='btnRemove' type='button' value='Remove' "
-		 + "class='btnRemove btn btn-danger' data-randomProj_ID='" + randomProj_ID + "'></td></tr>";
+		 + "class='btnRemove btn btn-danger' data-Project_Id='" + Project_Id + "'></td></tr>";
 		  }
 		  con.close();
 		  // Complete the html table
-		  output += "</table>";
+		  output += "</table><br><br>";
 	}
 	catch (Exception e)
 	{
@@ -95,7 +95,7 @@ public String insertItem(String randomProj_ID, String Project_Title, String Proj
 		 		}
 		 		
 		 // create a prepared statement
-		 String query = "insert into projects (randomProj_ID, Project_Title, Project_ShortDes, Project_LongDes, Project_Srclink, Project_Videolink) values (?,?,?,?,?,?)";
+		 String query = "insert into projects(Project_Id,randomProj_ID, Project_Title, Project_ShortDes, Project_LongDes, Project_Srclink, Project_Videolink)values(?,?,?,?,?,?,?)";
 		 
 				 PreparedStatement preparedStmt = con.prepareStatement(query);
 				 
@@ -124,7 +124,7 @@ public String insertItem(String randomProj_ID, String Project_Title, String Proj
 				 }
 				 return output;
 			}
-public String updateProjects(String randomProj_ID,String Project_Title,String Project_ShortDes,String Project_LongDes,String Project_Srclink,String Project_Videolink) 
+public String updateProjects(String Project_Id ,String randomProj_ID,String Project_Title,String Project_ShortDes,String Project_LongDes,String Project_Srclink,String Project_Videolink) 
 		 
 		 {
 		 	String output = "";
@@ -140,7 +140,7 @@ public String updateProjects(String randomProj_ID,String Project_Title,String Pr
 			 	}
 			 	
 			 	// create a prepared statement
-			 	String query = "UPDATE projects SET randomProj_ID='"+randomProj_ID+"',Project_Title='"+Project_Title+"', Project_ShortDes='"+Project_ShortDes+"' , Project_LongDes = '"+Project_LongDes+"' , Project_Srclink='"+Project_Srclink+"' ,Project_Videolink='"+Project_Videolink+"' WHERE randomProj_ID ='"+randomProj_ID+"' ";
+			 	String query = "UPDATE projects SET randomProj_ID=?,Project_Title=?, Project_ShortDes=?, Project_LongDes =?, Project_Srclink=?,Project_Videolink=? WHERE Project_Id =? ";
 		 
 			 	PreparedStatement preparedStmt = con.prepareStatement(query);
 			 	
@@ -151,9 +151,10 @@ public String updateProjects(String randomProj_ID,String Project_Title,String Pr
 			 	preparedStmt.setString(4, Project_LongDes);
 			 	preparedStmt.setString(5, Project_Srclink);
 			 	preparedStmt.setString(6, Project_Videolink);
+			 	preparedStmt.setInt(7, Integer.parseInt(Project_Id));
 			
 			 	// execute the statement
-			 	preparedStmt.execute();
+			 	preparedStmt.executeUpdate(query);
 			 	con.close();
 			 	
 			 	String newItems = readItems();
@@ -169,7 +170,7 @@ public String updateProjects(String randomProj_ID,String Project_Title,String Pr
 		 return output;
 	}
 
-public String deleteItem(String randomProj_ID)
+public String deleteItem(String Project_Id)
 {
 			String output = "";
 			
@@ -184,12 +185,12 @@ public String deleteItem(String randomProj_ID)
 		 
 		 }
 		 // create a prepared statement
-		 String query = "DELETE FROM projects WHERE randomProj_ID = '"+randomProj_ID+"' ";
+		 String query = "DELETE FROM projects WHERE Project_Id=?";
 		 
 		 PreparedStatement preparedStmt = con.prepareStatement(query);
 		 
 		 // binding values
-		 preparedStmt.setString(1, randomProj_ID);
+		 preparedStmt.setInt(1, Integer.parseInt(Project_Id));
 		 
 		 // execute the statement
 		 preparedStmt.execute();

@@ -1,3 +1,11 @@
+$(document).ready(function()
+{
+if ($("#alertSuccess").text().trim() == "")
+{
+$("#alertSuccess").hide();
+}
+$("#alertError").hide();
+});
 $(document).on("click", "#btnSave", function(event)
 {
 	// Clear alerts---------------------
@@ -16,7 +24,7 @@ $(document).on("click", "#btnSave", function(event)
 	 }
 
 	// If valid------------------------
-	var type = ($("#randomProj_ID").val() == "") ? "POST" : "PUT";
+	var type = ($("#hidItemIDSave").val() == "") ? "POST" : "PUT";
 	
  	$.ajax(
 	 {
@@ -57,14 +65,15 @@ function onItemSaveComplete(response, status)
  		$("#alertError").show();
  	} 
 
- 		$("#randomProj_ID").val("");
+ 		$("#hidItemIDSave").val("");
  		$("#formItem")[0].reset(); 
 	
  
 }
 $(document).on("click", ".btnUpdate", function(event)
 {
- $("#randomProj_ID").val($(this).closest("tr").find('td:eq(0)').text());	
+ $("#hidItemIDSave").val($(this).data("Project_Id"));	
+ $("#randomProj_ID").val($(this).closest("tr").find('td:eq(0)').text());
  $("#Project_Title").val($(this).closest("tr").find('td:eq(1)').text());
  $("#Project_ShortDes").val($(this).closest("tr").find('td:eq(2)').text());
  $("#Project_LongDes").val($(this).closest("tr").find('td:eq(3)').text());
@@ -78,7 +87,7 @@ $(document).on("click", ".btnRemove", function(event)
  		{
  			url : "ProjectAPI",
  			type : "DELETE",
- 			data : "randomProj_ID=" + $(this).data("randomProj_ID"),
+ 			data : "Project_Id=" + $(this).data("Project_Id"),
  			dataType : "text",
  			complete : function(response, status)
  			{
@@ -110,4 +119,41 @@ function onItemDeleteComplete(response, status)
  				$("#alertError").text("Unknown error while deleting..");
  				$("#alertError").show();
  		}
+}
+function validateItemForm() 
+{ 
+	// rabdom id
+	if ($("#randomProj_ID").val().trim() == "") 
+ 	{ 
+ 		return "Please Insert Random Id."; 
+ 	} 
+
+	// project title
+	if ($("#Project_Title").val().trim() == "") 
+	 { 
+ 		return "Please Insert Project Title."; 
+ 	}
+ 
+	// short description
+	if ($("#Project_ShortDes").val().trim() == "") 
+ 	{ 
+ 		return "Please Insert Short Description"; 
+ 	} 
+
+	// long description
+	if ($("#Project_LongDes").val().trim() == "") 
+ 	{ 
+ 		return "Please Insert Long Description"; 
+ 	} 
+	//	project src link
+	if ($("#Project_Srclink").val().trim() == "") 
+ 	{ 
+ 		return "Please Insert Project Source Link"; 
+ 	} 
+     //	project video link
+	if ($("#Project_Videolink").val().trim() == "") 
+ 	{ 
+ 		return "Please Insert Project Video Link"; 
+ 	}
+		return true; 
 }
